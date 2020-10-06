@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col bg-dark text-light text-center" style="height: 50px;
+        padding: 10px;">
+            Book Store
+            <cart-summary></cart-summary>
+        </div>
+    </div>
+    <div class="row text-secondary">
+        <div class="col-3 p-2 " style="background-color:rgb(235, 235, 235);">
+            <!--home button-->
+           <button class="btn btn-block  bg-light" (click)="changeGenre()">
+            HOME
+           </button>
+           <br>
+           <h5 style="text-align: center;">Genres</h5>
+           <!-- buttons for each category-->
+           <button *ngFor="let cat of genres"
+                    class="btn  btn-block bg-light"
+                    [class.active]="cat == selectedGenre" (click)="changeGenre(cat)"
+                    >
+                    {{cat}}
+           </button>
+
+           <!--admin button
+           <button class="btn btn-block btn-danger  m-t-3" routerLink="/admin">
+               Admin
+           </button>
+           -->
+           
+        </div>
+        <div class="col-9 bg-light p-2" >
+            
+            <div *ngFor= "let product of products" class="card m-1 p-1 text-dark"
+                style="border-bottom: 1.3px solid rgb(201, 199, 199) ; border-left: 1.3px solid  rgb(201, 199, 199);" > 
+                <h6>
+                    {{product.name }}
+                    <span class="badge badge-pill  float-right" style="font-size: medium;">
+                        {{product.price | currency:"INR":"symbol":"2.2-2" }}
+                    </span>
+                </h6>
+                <div class="card-text  p-1">
+                    {{ product.description }}
+
+                    <button class = "btn btn-info btn-sm float-right" 
+                    (click)="addProductToCart(product)">
+                    Add to cart
+                   </button>
+                </div>
+            </div>
+            <br>
+            <div class="form-inline float-left mr-1" >
+                <select class="form-control" [value]="productsPerPage"
+                (change)="changePageSize($event.target.value)">
+                    <option value="4">Four Products per page</option>
+                    <option value="6">Six Products per page</option>
+                    <option value="8">Eight Products per page</option>
+                </select>
+            </div>
+
+            <div class="btn-group float-right">
+                <button *ngFor = "let page of pageNumbers" (click)="changePage(page)"
+                class="btn  btn-outline-dark"
+                [class.active]="page==selectedPage">
+  
+                {{page}}
+                </button>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
